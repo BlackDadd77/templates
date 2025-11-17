@@ -1,0 +1,37 @@
+{
+    "id": "fullstack-secure",
+    "version": "1.0.0",
+    "name": "Full-Stack Secure Development",
+    "description": "A comprehensive development environment with SSH server, HTML/web tools, encryption utilities, and token management.",
+    "documentationURL": "https://github.com/devcontainers/templates/tree/main/src/fullstack-secure",
+    "publisher": "Dev Container Spec Maintainers",
+    "licenseURL": "https://github.com/devcontainers/templates/blob/main/LICENSE",
+    "options": {
+        "imageVariant": {
+            "type": "string",
+            "description": "Base image variant:",
+            "proposals": [
+                "ubuntu-24.04",
+                "ubuntu-22.04",
+                "debian-12",
+                "debian-11"
+            ],
+            "default": "ubuntu-24.04"
+        },
+        "nodeVersion": {
+            "type": "string",
+            "description": "Node.js version for HTML/web development:",
+            "proposals": [
+                "lts",
+                "20",
+                "18",
+                "none"
+            ],
+            "default": "lts"
+        }
+    },
+    "platforms": ["Any"],
+    "optionalPaths": [
+        ".github/*"
+    ]
+}

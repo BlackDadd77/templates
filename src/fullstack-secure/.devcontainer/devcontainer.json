@@ -1,0 +1,61 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/fullstack-secure
+{
+	"name": "Full-Stack Secure Development",
+	// Use Ubuntu base image
+	"image": "mcr.microsoft.com/devcontainers/base:${templateOption:imageVariant}",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		// Install SSH server for remote access
+		"ghcr.io/devcontainers/features/sshd:1": {
+			"version": "latest"
+		},
+		// Install Node.js for HTML/web development
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "${templateOption:nodeVersion}"
+		},
+		// Install common utilities including encryption tools
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"installOhMyZsh": true,
+			"upgradePackages": true
+		},
+		// Install Git for version control
+		"ghcr.io/devcontainers/features/git:1": {
+			"version": "latest"
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8080, 3000, 2222],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "bash -c 'sudo apt-get update && sudo apt-get install -y openssl gnupg2 pass age libssl-dev && npm install -g http-server serve live-server'",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"ms-vscode.live-server",
+				"ritwickdey.LiveServer",
+				"formulahendry.auto-close-tag",
+				"formulahendry.auto-rename-tag"
+			]
+		}
+	},
+
+	// Environment variables for token management
+	"remoteEnv": {
+		"TOKEN_DIR": "${containerWorkspaceFolder}/.tokens",
+		"SSH_AUTH_SOCK": "/tmp/ssh-agent.sock"
+	},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+
+	// Configure lifecycle scripts
+	"postStartCommand": "mkdir -p ${containerWorkspaceFolder}/.tokens && chmod 700 ${containerWorkspaceFolder}/.tokens"
+}
